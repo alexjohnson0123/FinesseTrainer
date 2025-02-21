@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Finesse Trainer</title>
+    <link rel="stylesheet" href="finesseTrainer.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Finesse Trainer</h1>
+    </header>
+    <div id="content">
+        <canvas id="tetrisBoard"></canvas>
+        <div id="right-panel">
+            <div class="side-box" id="controls">
+                <h2 class="panel-heading">Inputs</h2>
+                <div id="inputs"></div>
+            </div>
+            <div class="side-box" id="settings">
+                <h2 class="panel-heading">Settings</h2>
+
+                <div id="practice-settings" class="tab-content">
+                    <h3>Practice Settings</h3>
+                </div>
+                <div id="controls" class="tab-content">
+                    <h3>Controls</h3>
+                </div>
+                <div id="handling" class="tab-content">
+                    <h3>Handling</h3>
+                    <div>
+                        <label for="ARR-input">ARR: </label>
+                        <input type="number" min="0" max="100" value="33" id="ARR-input">
+                    </div>
+                    <div>
+                        <label for="DAS-input">DAS: </label>
+                        <input type="number" min="0" max="500" value="166" id="DAS-input">
+                    </div>
+                    <div>
+                        <label for="ghost-box">Ghost Piece:</label>
+                        <input type="checkbox" id="ghost-box">
+                    </div>
+                    <div>
+                        <label for="grid-box">Show Grid:</label>
+                        <input type="checkbox" id="grid-box">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="finesseTrainer.js"></script>
+</body>
+</html>

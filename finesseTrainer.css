@@ -1,0 +1,32 @@
+#tetrisBoard {
+    background: rgb(0, 0, 0);
+    z-index: -1;
+}
+
+body {
+    background-color: rgb(24, 24, 39);
+    color: white;
+    font-family: arial;
+}
+
+header {
+    padding-left: 50px;
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.side-box {
+    background-color: rgb(80, 80, 94);
+    width: 300px;
+    border-radius: 3px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.panel-heading {
+    margin: 0;
+}
