@@ -241,6 +241,8 @@ function drawGhostPiece() {
 }
 
 junkArray = [0,0,0,0,0,0,0,0,0,0];
+initializeJunkArray();
+
 function initializeJunkArray() {
     const patternsArr = junkPatterns[piece];
     const patternData = patternsArr[Math.floor(patternsArr.length*Math.random())]
