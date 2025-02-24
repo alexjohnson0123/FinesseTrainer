@@ -30,3 +30,7 @@ header {
 .panel-heading {
     margin: 0;
 }
+
+.controls-input {
+    width: 50px;
+}

@@ -107,20 +107,20 @@ let rightPressed = 0;
 let dropPressed = 0;
 
 document.addEventListener('keydown', (event) => {
-    switch (event.key) {
-        case 'l':
+    switch (event.code) {
+        case 'KeyL':
             rotateCWPressed = 1;
             break;
-        case 'a':
+        case 'KeyA':
             leftPressed = 1;
             break;
-        case 'j':
+        case 'KeyJ':
             rotateCCWPressed = 1;
             break;
-        case 'd':
+        case 'KeyD':
             rightPressed = 1;
             break;
-        case ' ':
+        case 'Space':
             dropPressed = 1;
     }
     
