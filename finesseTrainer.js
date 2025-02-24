@@ -32,7 +32,7 @@ const ghostColor = [
 // Define shape of the pieces
 const pieces = [
     // I piece
-    [[-1,-1],[0,-1],[1,-1],[2,-1]],
+    [[-1,0],[0,0],[1,0],[2,0]],
     // J piece
     [[-1,-1],[-1,0],[0,0],[1,0]],
     // L piece
@@ -49,10 +49,10 @@ const pieces = [
 
 // I piece rotates differently, must be hard coded
 const iRotations = [
-    [[-1, -1], [0, -1], [1, -1], [2, -1]],
-    [[1, -2], [1, 1], [1, 0,], [1, -1]],
     [[-1, 0], [0, 0], [1, 0], [2, 0]],
-    [[0, -2], [0, 1], [0, 0], [0, -1]]
+    [[1, 2], [1, 1], [1, 0,], [1, -1]],
+    [[-1, 1], [0, 1], [1, 1], [2, 1]],
+    [[0, 2], [0, 1], [0, 0], [0, -1]]
 ];
 
 // Define possible junk patterns for each piece
@@ -99,6 +99,21 @@ const junkPatterns = [
     ]
 ];
 
+const defaultControlsCode = {
+    "left-input": "KeyA",
+    "right-input": "KeyD",
+    "hard-drop-input": "KeyW",
+    "cw-input": "ArrowRight",
+    "ccw-input": "ArrowLeft" 
+};
+const defaultControlsKey = {
+    "left-input": "a",
+    "right-input": "d",
+    "hard-drop-input": "w",
+    "cw-input": "ArrowRight",
+    "ccw-input": "ArrowLeft" 
+}
+
 // Get keyboard input
 let rotateCWPressed = 0;
 let rotateCCWPressed = 0;
@@ -108,39 +123,39 @@ let dropPressed = 0;
 
 document.addEventListener('keydown', (event) => {
     switch (event.code) {
-        case 'KeyL':
+        case localStorage.getItem("cw-input-code"):
             rotateCWPressed = 1;
             break;
-        case 'KeyA':
+        case localStorage.getItem('left-input-code'):
             leftPressed = 1;
             break;
-        case 'KeyJ':
+        case localStorage.getItem('ccw-input-code'):
             rotateCCWPressed = 1;
             break;
-        case 'KeyD':
+        case localStorage.getItem('right-input-code'):
             rightPressed = 1;
             break;
-        case 'Space':
+        case localStorage.getItem('hard-drop-input-code'):
             dropPressed = 1;
     }
     
 });
 
 document.addEventListener('keyup', (event) => {
-    switch (event.key) {
-        case 'l':
+    switch (event.code) {
+        case localStorage.getItem("cw-input-code"):
             rotateCWPressed = 0;
             break;
-        case 'a':
+        case localStorage.getItem('left-input-code'):
             leftPressed = 0;
             break;
-        case 'j':
+        case localStorage.getItem('ccw-input-code'):
             rotateCCWPressed = 0;
             break;
-        case 'd':
+        case localStorage.getItem('right-input-code'):
             rightPressed = 0;
             break;
-        case ' ':
+        case localStorage.getItem('hard-drop-input-code'):
             dropPressed = 0;
             break;
     }
@@ -479,24 +494,55 @@ function initializeSetting(inputId) {
     const input = document.getElementById(inputId);
     if(localStorage.getItem(inputId) !== null) {
         input.value = localStorage.getItem(inputId);
+    } else {
+        localStorage.setItem(inputId, input.value);
     }
     input.addEventListener("input", () => {
         localStorage.setItem(inputId, input.value);
     });
 }
+initializeSetting("ARR-input");
+initializeSetting("DAS-input");
+
 function initializeCheckbox(checkboxId) {
     const checkbox = document.getElementById(checkboxId);
     if(localStorage.getItem(checkboxId) !== null) {
         checkbox.checked = localStorage.getItem(checkboxId) === 'true';
+    } else {
+        localStorage.setItem(checkboxId, checkbox.chedked);
     }
     checkbox.addEventListener("change", () => {
         localStorage.setItem(checkboxId, checkbox.checked);
     });
 }
-initializeSetting("ARR-input");
-initializeSetting("DAS-input");
 initializeCheckbox("ghost-box");
 initializeCheckbox("grid-box");
+
+function initializeControlInput(inputId) {
+    const input = document.getElementById(inputId);
+    if(localStorage.getItem(inputId) === null) {
+        localStorage.setItem(inputId, defaultControlsKey[inputId]);
+        localStorage.setItem(inputId + "-code", defaultControlsCode[inputId]); 
+    }
+    input.value = localStorage.getItem(inputId);
+    input.addEventListener("keydown", (event) => {
+        if (event.code === "Tab") {
+            return;
+        }
+        event.preventDefault();
+        let key = event.key;
+        key = key === " " ? "space" : key;
+
+        input.value = key;
+        localStorage.setItem(inputId, key);
+        localStorage.setItem(inputId + "-code", event.code);
+    })
+}
+initializeControlInput("left-input");
+initializeControlInput("right-input");
+initializeControlInput("hard-drop-input");
+initializeControlInput("cw-input");
+initializeControlInput("ccw-input");
 
 // Start animation loop
 animate();
