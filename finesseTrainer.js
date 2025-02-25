@@ -374,16 +374,80 @@ function drawJunk() {
 }
 
 function newPiece() {
-    x = 4;
-    rotation = 0;
-
-    if (moveCount === finesse[piece][junkPattern][junkX]) {
+    if (moveCount === finesse[piece][junkPattern][junkX] && checkDrop()) {
         piece = (piece + 1) % 7;
         initializeJunkArray();
     }
+    
+    x = 4;
+    rotation = 0;
     moveCount = 0;
     updateCurrentPiece();
     clearInputs();
+}
+
+function checkDrop() {
+    switch(piece) {
+        case 0:
+            // I
+            if(junkPattern === 3) {
+                return rotation === 0 && x === junkX + 1;
+            } else {
+                return rotation === 1 && x === junkX - 1 || rotation === 3 && x === junkX;
+            }  
+        case 1:
+            // J
+            if(junkPattern === 0) {
+                return rotation === 2 && x === junkX - 1;
+            } else if(junkPattern === 1) {
+                return rotation === 3 && x === junkX + 1;
+            } else if (junkPattern === 2) {
+                return rotation === 0 && x === junkX + 1;
+            } else {
+                return rotation === 1 && x === junkX;
+            }
+        case 2:
+            // L
+            if(junkPattern === 0) {
+                return rotation === 2 && x === junkX + 1;
+            } else if(junkPattern === 1) {
+                return rotation === 1 && x === junkX;
+            } else if(junkPattern === 2) {
+                return rotation === 0 && x === junkX + 1;
+            } else {
+                return rotation === 3 && x === junkX;
+            }
+        case 3:
+            // O
+            return x === junkX;
+        case 4:
+            // S
+            if(junkPattern === 1) {
+                return rotation === 0 && x === junkX + 1;
+            } else {
+                return rotation === 1 && x === junkX - 1 || rotation === 3 && x === junkX;
+            }
+        case 5:
+            // T
+            if(junkPattern === 2) {
+                return rotation === 0 && x === junkX + 1;
+            } else if(junkPattern === 6) {
+                return rotation === 1 && x === junkX;
+            } else if(junkPattern === 7) {
+                return rotation === 3 && x === junkX;
+            } else {
+                return rotation === 2 && x === junkX;
+            }
+        case 6:
+            // Z
+            if(junkPattern === 1) {
+                return rotation === 0 && x === junkX;
+            } else {
+                return rotation === 1 && x === junkX || rotation === 3 && x === junkX + 1;
+            }
+    }
+
+    return false;
 }
 
 let dropped = false;
@@ -502,8 +566,9 @@ function movePiece(deltaTime) {
     }
 }
 
-// Helper function for tracking inputs
+// Helper function for tracking inputs (disabled)
 function addInput(str) {
+    return;
     let element = document.getElementById("inputs");
     if (element.innerText) {
         element.innerText += ", " + str;
