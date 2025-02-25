@@ -94,10 +94,54 @@ const junkPatterns = [
     ],
     // Z
     [
-        [1,[1,9]],
+        [1,[1,8]],
         [6,[0,8]]
     ]
 ];
+
+// Define "correct" move count
+const finesse = [
+    // I
+    {
+        3: [1,2,1,0,1,2,1,0,0,0],
+        4: [1,1,1,1,0,0,1,1,1,1]
+    },
+    // J
+    {
+        0: [0,0,1,2,1,0,1,2,2,1],
+        1: [1,2,1,0,1,2,2,1,1,0],
+        2: [1,2,1,0,1,2,2,1,0,0],
+        5: [1,1,2,1,0,1,2,2,1,0]
+    },
+    // L
+    {
+        0: [1,2,1,0,1,2,2,1,0,0],
+        1: [1,1,2,1,0,1,2,2,1,0],
+        2: [1,2,1,0,1,2,2,1,0,0],
+        5: [0,1,2,1,0,1,2,2,1,1]
+    },
+    // O
+    {
+        1: [1,2,2,1,0,1,2,2,1,0]
+    },
+    // S
+    {
+        1: [1,2,1,0,1,2,2,1,0,0],
+        7: [0,1,1,1,0,0,1,2,1,1]
+    },
+    // T
+    {
+        2: [1,2,1,0,1,2,2,1,0,0],
+        6: [1,1,2,1,0,1,2,2,1,0],
+        7: [0,1,2,1,0,1,2,2,1,1],
+        8: [0,1,2,1,0,1,2,2,1,0]
+    },
+    // Z
+    {
+        1: [0,1,2,1,0,1,2,2,1,0],
+        6: [1,1,1,0,0,1,2,1,1,0]
+    }
+]
 
 const defaultControlsCode = {
     "left-input": "KeyA",
@@ -214,7 +258,7 @@ function drawSquare(x, y) {
     context.fillRect(x*blockSize, y*blockSize, blockSize + borderSize, blockSize + borderSize);
 }
 
-let currentPiece = [[-1,-1],[0,-1],[1,-1],[2,-1]];
+const currentPiece = [[-1,-1],[0,-1],[1,-1],[2,-1]];
 
 function updateCurrentPiece() {
     const p = pieces[piece];
@@ -255,58 +299,61 @@ function drawGhostPiece() {
     drawPiece(x, gridHeight - floor - 1);
 }
 
-junkArray = [0,0,0,0,0,0,0,0,0,0];
+let junkPattern = 0;
+let junkX = 0;
+
+const junkArray = [0,0,0,0,0,0,0,0,0,0];
 initializeJunkArray();
 
 function initializeJunkArray() {
     const patternsArr = junkPatterns[piece];
     const patternData = patternsArr[Math.floor(patternsArr.length*Math.random())]
 
-    const pattern = patternData[0];
-    const x = Math.floor((patternData[1][1]-patternData[1][0])*Math.random() + patternData[1][0]);
+    junkPattern = patternData[0];
+    junkX = Math.floor((patternData[1][1]-patternData[1][0])*Math.random() + patternData[1][0]);
 
     for(let i = 0; i < 10; i++) {
         // 1 wide
-        if (pattern === 0) {
-            junkArray[i] = i != x ? 1 : 0;
+        if (junkPattern === 0) {
+            junkArray[i] = i != junkX ? 1 : 0;
         // 2 wide
-        } else if (pattern === 1) {
-            junkArray[i] = i < x || i > x+1 ? 1 : 0;
+        } else if (junkPattern === 1) {
+            junkArray[i] = i < junkX || i > junkX+1 ? 1 : 0;
         // 3 wide
-        } else if (pattern === 2) {
-            junkArray[i] = i < x || i > x+2 ? 1 : 0;
+        } else if (junkPattern === 2) {
+            junkArray[i] = i < junkX || i > junkX+2 ? 1 : 0;
         // 4 wide
-        } else if (pattern === 3) {
-            junkArray[i] = i < x || i > x+3 ? 1 : 0;
+        } else if (junkPattern === 3) {
+            junkArray[i] = i < junkX || i > junkX+3 ? 1 : 0;
         // I dependency
-        } else if (pattern === 4) {
-            junkArray[i] = i != x ? 4 : 0;
+        } else if (junkPattern === 4) {
+            junkArray[i] = i != junkX ? 4 : 0;
         // L/J dependency
-        } else if(pattern === 5) {
-            junkArray[i] = i != x ? 2 : 0;
+        } else if(junkPattern === 5) {
+            junkArray[i] = i != junkX ? 2 : 0;
         // Right Stair
-        } else if(pattern === 6){
-            if(i === x) {
+        } else if(junkPattern === 6){
+            if(i === junkX) {
                 junkArray[i] = 0;
-            } else if(i === x+1) {
+            } else if(i === junkX+1) {
                 junkArray[i] = 1;
             } else {
                 junkArray[i] = 2;
             }
         // Left Stair
-        } else if(pattern === 7){
-            if(i === x) {
+        } else if(junkPattern === 7){
+            if(i === junkX) {
                 junkArray[i] = 0;
-            } else if(i === x-1) {
+            } else if(i === junkX-1) {
                 junkArray[i] = 1;
             } else {
                 junkArray[i] = 2;
             }
         // T-hole
         } else {
-            if(i === x) {
+            if(i === junkX) {
                 junkArray[i] = 0;
-            } else if(i === x-1 || i === x+1) {
+            } else if(i === junkX-1 || i === junkX+1) {
                 junkArray[i] = 1;
             } else {
                 junkArray[i] = 2;
@@ -329,11 +376,14 @@ function drawJunk() {
 function newPiece() {
     x = 4;
     rotation = 0;
-    piece = (piece + 1) % 7;
 
-    clearInputs();
+    if (moveCount === finesse[piece][junkPattern][junkX]) {
+        piece = (piece + 1) % 7;
+        initializeJunkArray();
+    }
+    moveCount = 0;
     updateCurrentPiece();
-    initializeJunkArray();
+    clearInputs();
 }
 
 let dropped = false;
@@ -345,6 +395,8 @@ let moveDir = 0;
 
 let DAStimer = 0;
 let ARRtimer = 0;
+
+let moveCount = 0;
 
 function movePiece(deltaTime) {
     if(dropPressed) {
@@ -393,6 +445,8 @@ function movePiece(deltaTime) {
 
             // Reset DAS timer
             DAStimer = 0;
+
+            moveCount++;
         } else {
             DAStimer += deltaTime;
             if(DAStimer >= DAS) {
