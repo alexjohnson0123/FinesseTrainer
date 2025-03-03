@@ -7,6 +7,8 @@ body {
     background-color: rgb(24, 24, 39);
     color: white;
     font-family: arial;
+    max-width: 1080px;
+    margin: auto;
 }
 
 header {
@@ -21,10 +23,10 @@ header {
 
 .side-box {
     background-color: rgb(80, 80, 94);
-    width: 300px;
     border-radius: 3px;
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 10px;
+    width: 170px;
 }
 
 .panel-heading {
@@ -33,4 +35,9 @@ header {
 
 .controls-input {
     width: 50px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
 }

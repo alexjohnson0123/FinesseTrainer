@@ -8,51 +8,47 @@
 </head>
 <body>
     <header id="header">
-        <h1>Finesse Trainer</h1>
+        <h1 id="title">Finesse Trainer</h1>
     </header>
     <div id="content">
         <canvas id="tetrisBoard"></canvas>
         <div id="right-panel">
-            <div class="side-box" id="controls">
-                <h2 class="panel-heading">Inputs</h2>
-                <div id="inputs"></div>
-            </div>
             <div class="side-box" id="settings">
                 <h2 class="panel-heading">Settings</h2>
-
-                <div id="practice-settings" class="tab-content">
-                    <h3>Practice Settings</h3>
-                </div>
                 <div id="controls" class="tab-content">
                     <h3>Controls</h3>
-                    <div>
+                    <div class="settings-row">
                         <label for="left-input">Move left:</label>
                         <input id="left-input" class="controls-input" type="input" type="text" value="a">
                     </div>
-                    <div>
+                    <div class="settings-row">
                         <label for="right-input">Move right:</label>
                         <input id="right-input" class="controls-input" type="input" type="text" value="a">
                     </div>
-                    <div>
-                        <label for="hard-drop-input">Hard drop:<label>
+                    <div class="settings-row">
+                        <label for="hard-drop-input">Hard drop:</label>
                         <input id="hard-drop-input" class="controls-input" type="input" type="text" value="a">
                     </div>
-                    <div>
-                        <label for="cw-input">Rotate clockwise:</label>
+                    <div class="settings-row">
+                        <label for="ccw-input">Rotate left:</label>
+                        <input id="ccw-input" class="controls-input" type="input" type="text" value="a">
+                    </div>
+                    <div class="settings-row">
+                        <label for="cw-input">Rotate right:</label>
                         <input id="cw-input" class="controls-input" type="input" type="text" value="a">
                     </div>
-                    <div>
-                        <label for="ccw-input">Rotate counterclockwise:</label>
-                        <input id="ccw-input" class="controls-input" type="input" type="text" value="a">
+                    <div class="settings-row">
+                        <label forj="180-input">Rotate 180</label>
+                        <input id="180-input" class="controls-input" type="input" type="text" value="a">
                     </div>
                 </div>
                 <div id="handling" class="tab-content">
                     <h3>Handling</h3>
-                    <div>
+                    <div class="settings-row">
                         <label for="ARR-input">ARR: </label>
                         <input type="number" min="0" max="100" value="33" id="ARR-input">
                     </div>
-                    <div>
+                    <div class="settings-row">
                         <label for="DAS-input">DAS: </label>
                         <input type="number" min="0" max="500" value="166" id="DAS-input">
                     </div>

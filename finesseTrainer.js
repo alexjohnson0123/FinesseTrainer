@@ -148,7 +148,8 @@ const defaultControlsCode = {
     "right-input": "KeyD",
     "hard-drop-input": "KeyW",
     "cw-input": "ArrowRight",
-    "ccw-input": "ArrowLeft" 
+    "ccw-input": "ArrowLeft", 
+    "180-input": "ArrowDown"
 };
 const defaultControlsKey = {
     "left-input": "a",
@@ -161,6 +162,7 @@ const defaultControlsKey = {
 // Get keyboard input
 let rotateCWPressed = 0;
 let rotateCCWPressed = 0;
+let rotate180Pressed = 0;
 let leftPressed = 0;
 let rightPressed = 0;
 let dropPressed = 0;
@@ -181,8 +183,10 @@ document.addEventListener('keydown', (event) => {
             break;
         case localStorage.getItem('hard-drop-input-code'):
             dropPressed = 1;
+            break;
+        case localStorage.getItem('180-input-code'):
+            rotate180Pressed = 1;
     }
-    
 });
 
 document.addEventListener('keyup', (event) => {
@@ -202,6 +206,8 @@ document.addEventListener('keyup', (event) => {
         case localStorage.getItem('hard-drop-input-code'):
             dropPressed = 0;
             break;
+        case localStorage.getItem('180-input-code'):
+            rotate180Pressed = 0;
     }
 });
 
@@ -246,9 +252,12 @@ function rotate(direction) {
         if(direction === 0) {
             currentPiece[i][0] = -b;
             currentPiece[i][1] = a;
-        } else {
+        } else if(direction === 1) {
             currentPiece[i][0] = b;
             currentPiece[i][1] = -a;
+        } else {
+            currentPiece[i][0] = -a;
+            currentPiece[i][1] = -b;
         }
     }
 }
@@ -375,7 +384,7 @@ function drawJunk() {
 
 function newPiece() {
     if (moveCount === finesse[piece][junkPattern][junkX] && checkDrop()) {
-        piece = (piece + 1) % 7;
+        piece = Math.floor(Math.random() * 7);
         initializeJunkArray();
     }
     
@@ -383,7 +392,6 @@ function newPiece() {
     rotation = 0;
     moveCount = 0;
     updateCurrentPiece();
-    clearInputs();
 }
 
 function checkDrop() {
@@ -453,6 +461,7 @@ function checkDrop() {
 let dropped = false;
 let rotatedCW = false;
 let rotatedCCW = false;
+let rotated180 = false;
 
 let inputDir = 0;
 let moveDir = 0;
@@ -478,7 +487,6 @@ function movePiece(deltaTime) {
             rotatedCW = true;
             rotation = (rotation + 1) % 4;
             rotate(0);
-            addInput("CW");
         }
     } else {
         rotatedCW = false;
@@ -488,10 +496,18 @@ function movePiece(deltaTime) {
             rotatedCCW = true;
             rotation = (rotation + 3) % 4;
             rotate(1);
-            addInput("CCW");
         }
     } else {
         rotatedCCW = false;
+    }
+    if(rotate180Pressed) {
+        if(!rotated180) {
+            rotated180 = true;
+            rotation = (rotation + 2) % 4;
+            rotate(2);
+        }
+    } else {
+        rotated180 = false;
     }
 
     // Handle input direction
@@ -524,19 +540,6 @@ function movePiece(deltaTime) {
             }
         }
     } else {
-        if(moveDir > 0) {
-            if(DAStimer >= DAS) {
-                addInput("DAS right");
-            } else {
-                addInput("right");
-            }
-        } else if(moveDir < 0) {
-            if(DAStimer >= DAS) {
-                addInput("DAS left");
-            } else {
-                addInput("left");
-            }
-        }
         moveDir = 0;
     }
 
@@ -566,9 +569,8 @@ function movePiece(deltaTime) {
     }
 }
 
-// Helper function for tracking inputs (disabled)
+/*
 function addInput(str) {
-    return;
     let element = document.getElementById("inputs");
     if (element.innerText) {
         element.innerText += ", " + str;
@@ -580,6 +582,7 @@ function clearInputs() {
     let element = document.getElementById("inputs");
     element.innerText = "";
 }
+*/
 
 // Helper math function
 function clamp(x, min, max) {
@@ -662,6 +665,7 @@ initializeControlInput("right-input");
 initializeControlInput("hard-drop-input");
 initializeControlInput("cw-input");
 initializeControlInput("ccw-input");
+initializeControlInput("180-input");
 
 // Start animation loop
 animate();
