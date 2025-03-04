@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris Finesse Trainer</title>
     <link rel="stylesheet" href="finesseTrainer.css">
+    <script src="https://kit.fontawesome.com/910ee35d95.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header id="header">
-        <h1 id="title">Finesse Trainer</h1>
+        <span id="title">Finesse Trainer</span>
+        <i id="info" class="fa-solid fa-circle-info fa-lg"></i>
     </header>
     <div id="content">
         <canvas id="tetrisBoard"></canvas>
@@ -64,6 +66,24 @@
             </div>
         </div>
     </div>
+    <dialog id="modal" data-modal>
+        <i id="popup-x" class="fa-solid fa-xmark fa-lg"></i>
+        <h1>What is this?</h1>
+        <p>This is an online training application for tetris. More specifically, it is meant to practice finesse movements.</p>
+    </dialog>
+    <script>
+        // Script for opening and closing info dialog
+        const openButton = document.getElementById("info");
+        const closeButton = document.getElementById("popup-x");
+        const modal = document.getElementById("modal");
+
+        openButton.addEventListener("click", () => {
+            modal.showModal();
+        });
+        closeButton.addEventListener("click", () => {
+            modal.close();
+        })
+    </script>
 <script src="finesseTrainer.js"></script>
 </body>
 </html>

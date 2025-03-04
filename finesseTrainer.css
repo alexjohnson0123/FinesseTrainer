@@ -13,6 +13,20 @@ body {
 
 header {
     padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.67em;
+    margin-top: 0.67em;
+}
+
+#title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#info {
+    margin-top: 18px;
 }
 
 #content {
@@ -40,4 +54,12 @@ header {
 .settings-row {
     display: flex;
     justify-content: space-between;
+}
+
+#modal {
+    max-width: 500px;
+}
+
+#popup-x {
+    float: right;
 }
