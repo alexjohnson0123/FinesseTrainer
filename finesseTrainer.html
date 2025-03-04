@@ -68,8 +68,35 @@
     </div>
     <dialog id="modal" data-modal>
         <i id="popup-x" class="fa-solid fa-xmark fa-lg"></i>
-        <h1>What is this?</h1>
-        <p>This is an online training application for tetris. More specifically, it is meant to practice finesse movements.</p>
+        <h1>About</h1>
+        <p>This is an online training application meant to help tetris players improve their "finesse" in a
+            simple environment.
+        </p>
+        <h2>What is finesse?</h2>
+        <p>Finesse is a system of inputs that allows a player to place a piece in the desired location and rotation in the least amount 
+            of keypresses. By combining a sequence of tapped, single block movements and held, automatic movements (DAS), it is possible
+            to place a piece in any place on the board in only two or less inputs.
+        </p>
+        <p>
+            Learn more about finesse <a href="https://four.lol/mid-game/finesse">here</a>. 
+        </p>
+        <h2>How to Play</h2>
+        <p>Use the keyboard to move and rotate each piece so that it fits snugly against the gray "junk" pieces.
+            Once the piece is in position, drop the piece into place. If incorrect finesse inputs were used, the piece will be
+            reset, and you will be able to retry until the correct inputs are used.
+        </p>
+        <h2>DAS</h2>
+        <p>Delayed Auto Shift, or DAS, is the amount of time in milliseconds a left or right input is held before it starts rapidly repeating.
+            Avoid setting this too low, or you risk accidentally getting a DAS when you only meant to move a single space.
+        </p>
+        <h2>ARR</h2>
+        <p>
+            The amount of time in milliseconds before the held input repeats during a DAS. A lower ARR setting allows for faster play and is
+            generally better. Some games don't allow this to be modified, so it may be useful to practice with a higher ARR
+            if your goal is to get better at one of those.
+        </p>
+        <h3>Credits</h3>
+        <p>Created by Alexander Johnson. Code is open source and available on <a href="https://github.com/alexjohnson0123/FinesseTrainer">GitHub</a>.</p>
     </dialog>
     <script>
         // Script for opening and closing info dialog
