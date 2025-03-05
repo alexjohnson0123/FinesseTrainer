@@ -382,11 +382,24 @@ function drawJunk() {
     }
 }
 
+let streak = 0;
+let bestStreak = 0;
+
 function newPiece() {
     if (moveCount === finesse[piece][junkPattern][junkX] && checkDrop()) {
         piece = Math.floor(Math.random() * 7);
         initializeJunkArray();
+        streak++;
+    } else {
+        streak = 0;
     }
+
+    bestStreak = streak > bestStreak ? streak : bestStreak;
+
+    const streakText = document.getElementById("streak");
+    streakText.innerText = streak;
+    const bestStreakText = document.getElementById("best-streak")
+    bestStreakText.innerText = bestStreak;
     
     x = 4;
     rotation = 0;

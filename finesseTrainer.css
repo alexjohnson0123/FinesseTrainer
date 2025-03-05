@@ -44,7 +44,8 @@ header {
 }
 
 .panel-heading {
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0.33em;
 }
 
 .controls-input {
