@@ -640,19 +640,20 @@ function initializeSetting(inputId) {
 initializeSetting("ARR-input");
 initializeSetting("DAS-input");
 
-function initializeCheckbox(checkboxId) {
+function initializeCheckbox(checkboxId, initialState) {
     const checkbox = document.getElementById(checkboxId);
     if(localStorage.getItem(checkboxId) !== null) {
         checkbox.checked = localStorage.getItem(checkboxId) === 'true';
     } else {
+        checkbox.checked = initialState === "checked";
         localStorage.setItem(checkboxId, checkbox.chedked);
     }
     checkbox.addEventListener("change", () => {
         localStorage.setItem(checkboxId, checkbox.checked);
     });
 }
-initializeCheckbox("ghost-box");
-initializeCheckbox("grid-box");
+initializeCheckbox("ghost-box", "checked");
+initializeCheckbox("grid-box", "unchecked");
 
 function initializeControlInput(inputId) {
     const input = document.getElementById(inputId);
