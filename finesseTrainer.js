@@ -144,19 +144,20 @@ const finesse = [
 ]
 
 const defaultControlsCode = {
-    "left-input": "KeyA",
-    "right-input": "KeyD",
-    "hard-drop-input": "KeyW",
-    "cw-input": "ArrowRight",
-    "ccw-input": "ArrowLeft", 
-    "180-input": "ArrowDown"
+    "left-input": "ArrowLeft",
+    "right-input": "ArrowRight",
+    "hard-drop-input": "Space",
+    "cw-input": "KeyX",
+    "ccw-input": "KeyZ", 
+    "180-input": "KeyC"
 };
 const defaultControlsKey = {
-    "left-input": "a",
-    "right-input": "d",
-    "hard-drop-input": "w",
-    "cw-input": "ArrowRight",
-    "ccw-input": "ArrowLeft" 
+    "left-input": "ArrowLeft",
+    "right-input": "ArrowRight",
+    "hard-drop-input": "Space",
+    "cw-input": "x",
+    "ccw-input": "z",
+    "180-input": "c"
 }
 
 // Get keyboard input
